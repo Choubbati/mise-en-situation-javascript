@@ -9,10 +9,9 @@ let count =0
 let toast = document.getElementById("emptyMessage")
 let tableContainer = document.getElementById("tableContainer")
 toast.style.display='none'
-// tableContainer.style.display='none'
 
 
-storageUtilisateur = JSON.parse(localStorage.setItem('utilisateur')) 
+storageUtilisateur = JSON.parse(localStorage.setItem('utilisateur')) || [] 
 
 
 
@@ -22,7 +21,7 @@ function afficher() {
 
     storageUtilisateur.forEach(storageUtilisateur => {
         let tab = document.createElement("tr")
-        table.innerHTML = `
+        tab.innerHTML = `
         <tr>
             <td>
                 <span class="user-name" data-bs-toggle="modal" data-bs-target="#userDetailModal">
@@ -38,7 +37,7 @@ function afficher() {
 
         `
 
-    });utilisateurList.appendChild(tab)
+    }),utilisateurList.appendChild(tab)
 
 }
 
@@ -47,18 +46,20 @@ function afficher() {
 function ajouterUtilisateur(p) {
     p.preventDefault()
 
-    let forma = document.getElementById("userForm")
+    const forma = document.getElementById("userForm")
     forma.innerHTML=''
     const tab={
-        // id:Date().New(),
+        id:Date().New(),
         userName: document.getElementById("userName").value,
         userEmail: document.getElementById("userEmail").value,
         userAge: document.getElementById("userAge").value
     }
-    tab.push(storageUtilisateur)
+    storageUtilisateur.push(tab)
     storageUtilisateur = localStorage.setItem(JSON.stringify("utilisateur")) || []
     count++
     tableContainer.style.display='flex'
+    tableContainer.style.display='none'
+
     afficher()
 }
 
